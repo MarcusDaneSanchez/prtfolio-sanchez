@@ -1,6 +1,4 @@
-﻿import React from 'react';
-
-const Contact = () => {
+﻿const Contact = () => {
   return (
     <section className="newsletter" id="contact">
       <div className="newsletter-content">

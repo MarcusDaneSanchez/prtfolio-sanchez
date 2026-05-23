@@ -1,6 +1,4 @@
-﻿import React from 'react';
-
-const SkillsExperience = () => {
+﻿const SkillsExperience = () => {
   const skills = [
     { title: 'UI/UX & Graphic Design', desc: 'Figma, Adobe Photoshop, Clip Studio Paint' },
     { title: 'Frontend Dev', desc: 'HTML, CSS, JavaScript, React, Flutter' },

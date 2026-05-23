@@ -1,6 +1,4 @@
-﻿import React from 'react';
-
-const Story = () => {
+﻿const Story = () => {
   return (
     <section className="story" id="about">
       <div className="story-images">
