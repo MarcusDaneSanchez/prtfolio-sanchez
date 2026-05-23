@@ -18,7 +18,7 @@
                 <h4>{skill.title}</h4>
                 <p>{skill.desc}</p>
               </div>
-              <span className="service-icon">&#9632;</span>
+              <span className="service-icon">{"\u25A0"}</span>
             </li>
           ))}
         </ul>
@@ -26,8 +26,7 @@
       <div className="services-image">
         <img src="https://images.unsplash.com/photo-1618331835717-801e976710b2?w=600&h=800&fit=crop" alt="Experience" />
         <div className="japanese-text">
-          <h1>技</h1>
-          <h1>術</h1>
+          <h1>技術</h1>
         </div>
       </div>
     </section>
