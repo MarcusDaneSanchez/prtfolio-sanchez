@@ -3,7 +3,7 @@
     { title: 'UI/UX & Graphic Design', desc: 'Figma, Adobe Photoshop, Clip Studio Paint' },
     { title: 'Frontend Dev', desc: 'HTML, CSS, JavaScript, React, Flutter' },
     { title: 'Backend Dev', desc: 'Java, PHP, MySQL, Supabase, Firebase' },
-    { title: 'Experience', desc: 'UI/UX Intern at FYB Technologies Inc. (800 hours)' }
+    { title: 'Experience', desc: 'UI/UX Intern at FYB Technologies Inc.' }
   ];
 
   return (
