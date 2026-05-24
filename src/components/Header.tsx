@@ -1,15 +1,43 @@
-﻿import { useState } from 'react';
+﻿import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { HashLink } from 'react-router-hash-link';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isHidden, setIsHidden] = useState(false);
+  const lastScrollY = useRef(0);
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const closeMenu = () => setIsMenuOpen(false);
 
+  useEffect(() => {
+    lastScrollY.current = window.scrollY;
+
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      if (currentScrollY <= 10) {
+        setIsHidden(false);
+      } else if (!isMenuOpen) {
+        setIsHidden(currentScrollY > lastScrollY.current);
+      }
+
+      lastScrollY.current = currentScrollY;
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [isMenuOpen]);
+
+  useEffect(() => {
+    if (isMenuOpen) {
+      setIsHidden(false);
+    }
+  }, [isMenuOpen]);
+
   return (
-    <header className="header">
+    <header className={`header ${isHidden ? 'is-hidden' : ''}`}>
       <div className="logo"><Link to="/" onClick={closeMenu}>M. DANE SANCHEZ</Link></div>
       
       {/* Hamburger Icon */}
