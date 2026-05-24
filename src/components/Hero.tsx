@@ -2,6 +2,7 @@
 import sideImg from '../assets/My Pictures/Side.jpeg';
 import centerImg from '../assets/My Pictures/Center.jpeg';
 import side2Img from '../assets/My Pictures/Side2.jpeg';
+import cvPdf from '../assets/Sanchez, Marcus Dane Resurreccion_Resume.pdf';
 
 const Hero = () => {
   const heroImagesRef = useRef<HTMLDivElement>(null);
@@ -40,6 +41,9 @@ const Hero = () => {
         <p className="description">
           Specializing in Web and Mobile Application Development, with practical experience in UI/UX design, graphic design, system analysis, and software development. Seeking opportunities to grow in the tech industry.
         </p>
+        <a href={cvPdf} download="Marcus-Dane-Sanchez-CV.pdf" className="download-cv-btn">
+          Download CV
+        </a>
         <div style={{ display: 'flex', gap: '1.5rem', marginTop: '2rem' }}>
           <a href="https://www.facebook.com/marcus.sanchez.1610/" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--text-primary)', transition: '0.3s', display: 'flex', alignItems: 'center' }} onMouseOver={(e) => e.currentTarget.style.color = '#1877F2'} onMouseOut={(e) => e.currentTarget.style.color = 'var(--text-primary)'}>
             <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
