@@ -1,8 +1,33 @@
-﻿import sideImg from '../assets/My Pictures/Side.jpeg';
+﻿import { useEffect, useRef } from 'react';
+import sideImg from '../assets/My Pictures/Side.jpeg';
 import centerImg from '../assets/My Pictures/Center.jpeg';
 import side2Img from '../assets/My Pictures/Side2.jpeg';
 
 const Hero = () => {
+  const heroImagesRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const container = heroImagesRef.current;
+    if (!container) return;
+
+    const isMobile = window.matchMedia('(max-width: 900px)').matches;
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (!isMobile || prefersReducedMotion) return;
+
+    const slides = Array.from(container.children) as HTMLElement[];
+    if (slides.length < 2) return;
+
+    let currentIndex = 0;
+
+    const intervalId = window.setInterval(() => {
+      currentIndex = (currentIndex + 1) % slides.length;
+      slides[currentIndex]?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    }, 3200);
+
+    return () => window.clearInterval(intervalId);
+  }, []);
+
   return (
     <section className="hero">
       <div className="hero-content">
@@ -32,7 +57,7 @@ const Hero = () => {
           </a>
         </div>
       </div>
-      <div className="hero-images">
+      <div className="hero-images" ref={heroImagesRef}>
         <div className="hero-image"><img src={sideImg} alt="Marcus Profile Side" /></div>
         <div className="hero-image main-hero-image"><img src={centerImg} alt="Marcus Profile Center" /></div>
         <div className="hero-image"><img src={side2Img} alt="Marcus Profile Side 2" /></div>

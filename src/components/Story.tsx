@@ -1,10 +1,39 @@
-﻿const Story = () => {
+﻿import { useEffect, useRef } from 'react';
+import gdgocThumb from '../assets/Projects/GDGOC/Thumbnail.png';
+import dsciplrThumb from '../assets/Projects/DSCIPLR/Thumbnail.png';
+import xplorexThumb from '../assets/Projects/XPlorex/Thumbnail.png';
+
+const Story = () => {
+  const storyImagesRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const container = storyImagesRef.current;
+    if (!container) return;
+
+    const isMobile = window.matchMedia('(max-width: 900px)').matches;
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (!isMobile || prefersReducedMotion) return;
+
+    const slides = Array.from(container.children) as HTMLElement[];
+    if (slides.length < 2) return;
+
+    let currentIndex = 0;
+
+    const intervalId = window.setInterval(() => {
+      currentIndex = (currentIndex + 1) % slides.length;
+      slides[currentIndex]?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    }, 3200);
+
+    return () => window.clearInterval(intervalId);
+  }, []);
+
   return (
     <section className="story" id="about">
-      <div className="story-images">
-        <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=200&h=200&fit=crop" alt="Education 1" />
-        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=200&h=200&fit=crop" alt="Education 2" />
-        <img src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=200&h=200&fit=crop" alt="Education 3" />
+      <div className="story-images" ref={storyImagesRef}>
+        <img src={gdgocThumb} alt="Google Developer Group on Campus project" loading="lazy" />
+        <img src={dsciplrThumb} alt="Dashboard and systems project" loading="lazy" />
+        <img src={xplorexThumb} alt="XPlorex web project" loading="lazy" />
       </div>
       <div className="story-content">
         <p className="subtitle">EDUCATION & BACKGROUND</p>
