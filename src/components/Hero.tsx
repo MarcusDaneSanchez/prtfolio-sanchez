@@ -22,7 +22,11 @@ const Hero = () => {
 
     const intervalId = window.setInterval(() => {
       currentIndex = (currentIndex + 1) % slides.length;
-      slides[currentIndex]?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      const slide = slides[currentIndex];
+      if (!slide) return;
+
+      const targetLeft = slide.offsetLeft - (container.clientWidth - slide.clientWidth) / 2;
+      container.scrollTo({ left: targetLeft, behavior: 'smooth' });
     }, 3200);
 
     return () => window.clearInterval(intervalId);
