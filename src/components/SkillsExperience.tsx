@@ -1,8 +1,8 @@
 ﻿const SkillsExperience = () => {
   const skills = [
     { title: 'UI/UX & Graphic Design', desc: 'Figma, Adobe Photoshop, Clip Studio Paint' },
-    { title: 'Frontend Dev', desc: 'HTML, CSS, JavaScript, React, Flutter' },
-    { title: 'Backend Dev', desc: 'Java, PHP, MySQL, Supabase, Firebase' },
+    { title: 'Frontend Dev', desc: 'HTML, CSS, JavaScript, React, Flutter, FlutterFlow' },
+    { title: 'Backend Dev', desc: 'Node.Js, Dart, Java, PHP, MySQL, Supabase, Firebase' },
     { title: 'Experience', desc: 'UI/UX Intern at FYB Technologies Inc.' }
   ];
 
