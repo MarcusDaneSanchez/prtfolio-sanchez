@@ -15,7 +15,7 @@ const Footer = () => {
           </div>
           <div className="link-column">
             <h4>CONTACT</h4>
-            <a href="mailto:ndrs082904@gmail.com">Email</a>
+            <a href="mailto:marcusdanesanchez@gmail.com">Email</a>
             <a href="tel:+639225187961">Phone</a>
           </div>
           <div className="link-column">

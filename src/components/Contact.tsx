@@ -25,7 +25,7 @@ const Contact = () => {
     setStatus('sending');
 
     try {
-      const response = await fetch('https://formsubmit.co/ajax/ndrs082904@gmail.com', {
+      const response = await fetch('https://formsubmit.co/ajax/marcusdanesanchez@gmail.com', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -60,7 +60,7 @@ const Contact = () => {
     <section className="newsletter" id="contact">
       <div className="newsletter-content">
         <h2 className="title">LET'S WORK TOGETHER</h2>
-        <p style={{color: '#999', marginBottom: '2rem'}}>ndrs082904@gmail.com | +63 922 518 7961</p>
+        <p style={{color: '#999', marginBottom: '2rem'}}>marcusdanesanchez@gmail.com | +63 922 518 7961</p>
         <form className="newsletter-form" onSubmit={handleSubmit} noValidate>
           <div className="input-group">
             <input
