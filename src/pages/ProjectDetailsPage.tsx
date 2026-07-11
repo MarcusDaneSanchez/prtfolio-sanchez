@@ -7,9 +7,14 @@ const ProjectDetailsPage = () => {
   const navigate = useNavigate();
   const project = projectsData.find(p => p.id === Number(id));
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const currentImage = project?.images[currentImageIndex];
 
   useEffect(() => {
     window.scrollTo(0, 0);
+  }, [id]);
+
+  useEffect(() => {
+    setCurrentImageIndex(0);
   }, [id]);
 
   useEffect(() => {
@@ -23,6 +28,14 @@ const ProjectDetailsPage = () => {
     
     return () => clearInterval(interval);
   }, [project]);
+
+  useEffect(() => {
+    if (!project || project.images.length <= 1) return;
+
+    const nextImageIndex = (currentImageIndex + 1) % project.images.length;
+    const nextImage = new Image();
+    nextImage.src = project.images[nextImageIndex];
+  }, [currentImageIndex, project]);
 
   const nextImage = () => {
     if (!project) return;
@@ -69,18 +82,23 @@ const ProjectDetailsPage = () => {
       <section className="story" style={{flexDirection: 'column', alignItems: 'flex-start', paddingBottom: '6rem'}}>
         <h2 className="title" style={{marginBottom: '2rem', fontSize: '2rem'}}>GALLERY</h2>
         <div style={{position: 'relative', width: '100%', borderRadius: '8px', overflow: 'hidden', backgroundColor: 'var(--bg-lighter)'}}>
-          <div style={{ display: 'flex', transition: 'transform 0.5s ease-in-out', transform: `translateX(-${currentImageIndex * 100}%)` }}>
-            {project.images.map((img, index) => (
-              <div key={index} style={{minWidth: '100%', flex: '0 0 100%', position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center', height: '65vh', maxHeight: '700px', overflow: 'hidden'}}>
-                {/* Blurred backdrop to fill empty space elegantly */}
+          <div style={{ position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center', height: '65vh', maxHeight: '700px', overflow: 'hidden' }}>
+            {currentImage && (
+              <>
                 <div style={{
                   position: 'absolute', top: '-10%', left: '-10%', right: '-10%', bottom: '-10%',
-                  backgroundImage: `url("${img}")`, backgroundSize: 'cover', backgroundPosition: 'center',
+                  backgroundImage: `url("${currentImage}")`, backgroundSize: 'cover', backgroundPosition: 'center',
                   filter: 'blur(20px) brightness(0.4)', zIndex: 0
                 }} />
-                <img src={img} alt={`${project.name} preview ${index + 1}`} style={{maxWidth: '100%', maxHeight: '100%', objectFit: 'contain', zIndex: 1, boxShadow: '0 10px 30px rgba(0,0,0,0.5)'}} />
-              </div>
-            ))}
+                <img
+                  src={currentImage}
+                  alt={`${project.name} preview ${currentImageIndex + 1}`}
+                  loading="eager"
+                  decoding="async"
+                  style={{maxWidth: '100%', maxHeight: '100%', objectFit: 'contain', zIndex: 1, boxShadow: '0 10px 30px rgba(0,0,0,0.5)'}}
+                />
+              </>
+            )}
           </div>
           
           {project.images.length > 1 && (
