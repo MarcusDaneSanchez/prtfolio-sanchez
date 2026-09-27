@@ -1,15 +1,21 @@
 const experienceItems = [
   {
-    period: 'INTERNSHIP',
-    title: 'UI/UX Intern',
-    company: 'FYB Technologies Inc.',
-    type: 'Design & Product',
+    period: "INTERNSHIP",
+    title: "UI/UX Intern",
+    company: "FYB Technologies Inc.",
+    type: "Design & Product",
   },
   {
-    period: 'PROFESSIONAL EXPERIENCE',
-    title: 'Graphic Designer',
-    company: 'Active Chase',
-    type: 'Visual Design',
+    period: "PROFESSIONAL EXPERIENCE",
+    title: "Graphic Designer",
+    company: "Active Chase",
+    type: "Visual Design",
+  },
+  {
+    period: "SCHOOL ORGANIZATION",
+    title: "UI/UX Development Lead",
+    company: "Good Developer Group on Campus Nu – Baliwag",
+    type: "Design & Development",
   },
 ];
 
