@@ -8,16 +8,16 @@ const ProjectsPage = () => {
   }, []);
 
   return (
-    <div style={{ paddingTop: '6rem', minHeight: '80vh', backgroundColor: 'var(--bg-color)' }}>
+    <div className="projects-page" style={{ paddingTop: '6rem', minHeight: '80vh', backgroundColor: 'var(--bg-color)' }}>
       <section className="bestsellers" style={{paddingTop: '2rem'}}>
-        <div className="bestsellers-header">
+        <div className="bestsellers-header" data-reveal>
           <h2 className="title">ALL PROJECTS</h2>
         </div>
         <div className="product-grid">
           {projectsData.map((project) => (
-            <div key={project.id} className="product-card">
+            <div key={project.id} className="product-card" data-reveal style={{ ['--reveal-delay' as string]: `${projectsData.indexOf(project) * 70}ms` }}>
               <Link to={`/projects/${project.id}`} style={{display: 'block'}}>
-                <div className="product-image-container" style={{position: 'relative'}}>
+                <div className="product-image-container" style={{position: 'relative'}} data-parallax="0.05">
                   {project.name !== 'Digital Art & Design' && (
                     <div style={{
                       position: 'absolute', top: '10px', left: '10px', 

@@ -5,6 +5,7 @@ import { HashLink } from 'react-router-hash-link';
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const lastScrollY = useRef(0);
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
@@ -15,6 +16,7 @@ const Header = () => {
 
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
+      setIsScrolled(currentScrollY > 24);
 
       if (currentScrollY <= 10) {
         setIsHidden(false);
@@ -37,7 +39,7 @@ const Header = () => {
   }, [isMenuOpen]);
 
   return (
-    <header className={`header ${isHidden ? 'is-hidden' : ''}`}>
+    <header className={`header ${isHidden ? 'is-hidden' : ''} ${isScrolled ? 'is-scrolled' : ''}`}>
       <div className="logo"><Link to="/" onClick={closeMenu}>M. DANE SANCHEZ</Link></div>
       
       {/* Hamburger Icon */}

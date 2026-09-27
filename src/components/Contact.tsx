@@ -57,8 +57,8 @@ const Contact = () => {
   };
 
   return (
-    <section className="newsletter" id="contact">
-      <div className="newsletter-content">
+    <section className="newsletter" id="contact" data-reveal>
+      <div className="newsletter-content" style={{ ['--reveal-delay' as string]: '100ms' }}>
         <h2 className="title">LET'S WORK TOGETHER</h2>
         <p style={{color: '#999', marginBottom: '2rem'}}>marcusdanesanchez@gmail.com | +63 922 518 7961</p>
         <form className="newsletter-form" onSubmit={handleSubmit} noValidate>

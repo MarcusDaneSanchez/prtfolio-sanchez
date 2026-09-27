@@ -34,12 +34,12 @@ const Story = () => {
 
   return (
     <section className="story" id="about">
-      <div className="story-images" ref={storyImagesRef}>
+      <div className="story-images" ref={storyImagesRef} data-parallax="0.08" data-reveal style={{ ['--reveal-delay' as string]: '120ms' }}>
         <img src={gdgocThumb} alt="Google Developer Group on Campus project" loading="lazy" />
         <img src={dsciplrThumb} alt="Dashboard and systems project" loading="lazy" />
         <img src={xplorexThumb} alt="XPlorex web project" loading="lazy" />
       </div>
-      <div className="story-content">
+      <div className="story-content" data-reveal style={{ ['--reveal-delay' as string]: '220ms' }}>
         <p className="subtitle">EDUCATION & BACKGROUND</p>
         <h2 className="title">CONTINUOUS<br/>LEARNING AND<br/>INNOVATION</h2>
         <div className="description" style={{color: 'var(--text-secondary)'}}>

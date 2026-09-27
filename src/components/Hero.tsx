@@ -1,41 +1,80 @@
-﻿import { useEffect, useRef } from 'react';
+﻿import { useEffect, useRef, useState } from 'react';
 import sideImg from '../assets/My Pictures/Side.jpeg';
 import centerImg from '../assets/My Pictures/Center.jpeg';
 import side2Img from '../assets/My Pictures/Side2.jpeg';
 import cvPdf from '../assets/Sanchez, Marcus Dane Resurreccion_Resume.pdf';
 
 const Hero = () => {
+  const heroRef = useRef<HTMLElement>(null);
+  const heroPinRef = useRef<HTMLDivElement>(null);
   const heroImagesRef = useRef<HTMLDivElement>(null);
+  const [reducedMotion, setReducedMotion] = useState(false);
 
   useEffect(() => {
-    const container = heroImagesRef.current;
-    if (!container) return;
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const updatePreference = () => setReducedMotion(mediaQuery.matches);
+    updatePreference();
 
-    const isMobile = window.matchMedia('(max-width: 900px)').matches;
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (typeof mediaQuery.addEventListener === 'function') {
+      mediaQuery.addEventListener('change', updatePreference);
+      return () => mediaQuery.removeEventListener('change', updatePreference);
+    }
 
-    if (!isMobile || prefersReducedMotion) return;
-
-    const slides = Array.from(container.children) as HTMLElement[];
-    if (slides.length < 2) return;
-
-    let currentIndex = 0;
-
-    const intervalId = window.setInterval(() => {
-      currentIndex = (currentIndex + 1) % slides.length;
-      const slide = slides[currentIndex];
-      if (!slide) return;
-
-      const targetLeft = slide.offsetLeft - (container.clientWidth - slide.clientWidth) / 2;
-      container.scrollTo({ left: targetLeft, behavior: 'smooth' });
-    }, 3200);
-
-    return () => window.clearInterval(intervalId);
+    mediaQuery.addListener(updatePreference);
+    return () => mediaQuery.removeListener(updatePreference);
   }, []);
 
+  useEffect(() => {
+    if (reducedMotion) return;
+
+    let animationFrame = 0;
+
+    const updateHero = () => {
+      animationFrame = 0;
+      const hero = heroRef.current;
+      const pin = heroPinRef.current;
+      const images = heroImagesRef.current;
+      if (!hero || !pin || !images) return;
+
+      const rect = hero.getBoundingClientRect();
+      const start = rect.top - 96;
+      const end = rect.bottom - window.innerHeight;
+      const progress = Math.max(0, Math.min(1, -start / Math.max(end - start, 1)));
+      const revealProgress = (from: number, to: number) => Math.max(0, Math.min(1, (progress - from) / (to - from)));
+      const center = images.querySelector<HTMLElement>('.main-hero-image');
+      const left = images.querySelector<HTMLElement>('.hero-image--left');
+      const right = images.querySelector<HTMLElement>('.hero-image--right');
+
+      center?.style.setProperty('--hero-center-progress', `${progress}`);
+      left?.style.setProperty('--hero-side-progress', `${progress}`);
+      right?.style.setProperty('--hero-side-progress', `${progress}`);
+      pin.style.setProperty('--hero-scroll-progress', `${progress}`);
+      pin.style.setProperty('--hero-subtitle-progress', `${revealProgress(0.02, 0.18)}`);
+      pin.style.setProperty('--hero-title-progress', `${revealProgress(0.12, 0.42)}`);
+      pin.style.setProperty('--hero-description-progress', `${revealProgress(0.35, 0.65)}`);
+      pin.style.setProperty('--hero-cta-progress', `${revealProgress(0.58, 0.82)}`);
+      pin.style.setProperty('--hero-social-progress', `${revealProgress(0.72, 0.96)}`);
+    };
+
+    const scheduleHero = () => {
+      if (animationFrame === 0) animationFrame = window.requestAnimationFrame(updateHero);
+    };
+
+    updateHero();
+    window.addEventListener('scroll', scheduleHero, { passive: true });
+    window.addEventListener('resize', scheduleHero);
+
+    return () => {
+      window.removeEventListener('scroll', scheduleHero);
+      window.removeEventListener('resize', scheduleHero);
+      if (animationFrame !== 0) window.cancelAnimationFrame(animationFrame);
+    };
+  }, [reducedMotion]);
+
   return (
-    <section className="hero">
-      <div className="hero-content">
+    <section className={`hero hero--story ${reducedMotion ? 'is-reduced-motion' : ''}`} ref={heroRef}>
+      <div className="hero-pin" ref={heroPinRef}>
+        <div className="hero-content hero-copy">
         <p className="subtitle">IT PROFESSIONAL</p>
         <h1 className="title">MARCUS DANE<br/>R. SANCHEZ</h1>
         <p className="description">
@@ -64,11 +103,12 @@ const Hero = () => {
             </svg>
           </a>
         </div>
-      </div>
-      <div className="hero-images" ref={heroImagesRef}>
-        <div className="hero-image"><img src={sideImg} alt="Marcus Profile Side" /></div>
-        <div className="hero-image main-hero-image"><img src={centerImg} alt="Marcus Profile Center" /></div>
-        <div className="hero-image"><img src={side2Img} alt="Marcus Profile Side 2" /></div>
+        </div>
+        <div className="hero-images hero-visual" ref={heroImagesRef}>
+          <div className="hero-image hero-image--left"><img src={sideImg} alt="Marcus Profile Side" /></div>
+          <div className="hero-image main-hero-image"><img src={centerImg} alt="Marcus Profile Center" /></div>
+          <div className="hero-image hero-image--right"><img src={side2Img} alt="Marcus Profile Side 2" /></div>
+        </div>
       </div>
     </section>
   );

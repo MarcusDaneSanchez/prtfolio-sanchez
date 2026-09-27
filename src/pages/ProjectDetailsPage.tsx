@@ -61,10 +61,10 @@ const ProjectDetailsPage = () => {
   }
 
   return (
-    <div style={{ paddingTop: '6rem', minHeight: '80vh', backgroundColor: 'var(--bg-color)' }}>
+    <div className="project-details-page" style={{ paddingTop: '6rem', minHeight: '80vh', backgroundColor: 'var(--bg-color)' }}>
       {/* Detail Hero Section */}
-      <section className="hero" style={{paddingTop: '2rem', paddingBottom: '4rem'}}>
-        <div className="hero-content">
+      <section className="hero hero--details" style={{paddingTop: '2rem', paddingBottom: '4rem'}}>
+        <div className="hero-content" data-reveal>
           <button onClick={() => navigate(-1)} style={{marginBottom: '2rem', color: 'var(--text-secondary)', fontSize: '0.9rem'}}>&larr; Go Back</button>
           <p className="subtitle">{project.category}</p>
           <h1 className="title" style={{fontSize: '3rem', marginBottom: '1rem'}}>{project.name}</h1>
@@ -79,9 +79,9 @@ const ProjectDetailsPage = () => {
       </section>
 
       {/* Gallery Section */}
-      <section className="story" style={{flexDirection: 'column', alignItems: 'flex-start', paddingBottom: '6rem'}}>
-        <h2 className="title" style={{marginBottom: '2rem', fontSize: '2rem'}}>GALLERY</h2>
-        <div style={{position: 'relative', width: '100%', borderRadius: '8px', overflow: 'hidden', backgroundColor: 'var(--bg-lighter)'}}>
+      <section className="story story--details" style={{flexDirection: 'column', alignItems: 'flex-start', paddingBottom: '6rem'}}>
+        <h2 className="title" style={{marginBottom: '2rem', fontSize: '2rem'}} data-reveal>GALLERY</h2>
+        <div style={{position: 'relative', width: '100%', borderRadius: '8px', overflow: 'hidden', backgroundColor: 'var(--bg-lighter)'}} data-reveal data-parallax="0.08">
           <div style={{ position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center', height: '65vh', maxHeight: '700px', overflow: 'hidden' }}>
             {currentImage && (
               <>
